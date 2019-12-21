@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.vickyproject.onlinemusicstore.dao.ProductDao;
@@ -31,9 +32,16 @@ public class MainController {
 		return "productList";
 	}
 	
-	@RequestMapping("viewProduct")
-	public String productDetails(Model theModel)
+	@RequestMapping("viewProduct/{pId}")
+	public String productDetails(@PathVariable int pId, Model theModel)
 	{
+		// get id from pathvariable
+		Product theProduct = dao.getProductById(pId);
+		
+		// make use  of dao to get the product detail
+		// put it in model
+		theModel.addAttribute("prod", theProduct);
+		
 		return "viewProduct";
 	}
 

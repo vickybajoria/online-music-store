@@ -11,6 +11,7 @@ public class ProductDao {
 		// dummy product
 		Product prod1 = new Product();
 		
+		prod1.setProductId(2);
 		prod1.setProductName("Guitar1");
 		prod1.setProductCategory("Instrument");
 		prod1.setProductDescription("This is a fender strat guitar!");
@@ -25,6 +26,23 @@ public class ProductDao {
         prodList.add(prod1);
         
         return prodList;
+	}
+	
+	public Product getProductById(int id)
+	{
+		Product prod1 = new Product();
+		
+		prod1.setProductId(id);
+		prod1.setProductName("Basuri");
+		prod1.setProductCategory("Instrument");
+		prod1.setProductDescription("This is a roking Basuri!");
+		prod1.setProductPrice(1000);
+        prod1.setProductCondition("new");
+        prod1.setProductStatus("Active");
+        prod1.setUnitInStock(19);
+        prod1.setProductManufacturer("Vicky");
+        
+        return prod1;
 	}
 
 }
