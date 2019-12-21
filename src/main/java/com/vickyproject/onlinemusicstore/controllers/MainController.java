@@ -10,18 +10,18 @@ import com.vickyproject.onlinemusicstore.dao.ProductDao;
 import com.vickyproject.onlinemusicstore.entity.Product;
 
 @Controller
-@RequestMapping("/online-music-store")
+@RequestMapping("/online-music-store/")
 public class MainController {
 	
 	ProductDao dao = new ProductDao();
 	
-	@RequestMapping("/")
+	@RequestMapping("")
 	public String homePage()
 	{
 		return "home";
 	}
 	
-	@RequestMapping("/productList")
+	@RequestMapping("productList")
 	public String getProduct(Model theModel)
 	{
 		List<Product> prodList = dao.getProductList();
@@ -29,6 +29,12 @@ public class MainController {
 		theModel.addAttribute("prod1", prodList.get(0));
 		
 		return "productList";
+	}
+	
+	@RequestMapping("viewProduct")
+	public String productDetails(Model theModel)
+	{
+		return "viewProduct";
 	}
 
 }
