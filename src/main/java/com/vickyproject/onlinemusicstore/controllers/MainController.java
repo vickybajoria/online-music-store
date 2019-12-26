@@ -52,5 +52,25 @@ public class MainController {
 	{
 		return "admin";
 	}
+	
+	@RequestMapping("admin/productInventory")
+	public String productInventory(Model theModel)
+	{
+		List<Product> prodList = theProductDao.findAll();
+		
+		theModel.addAttribute("prodList", prodList);
+		
+		return "productInventory";
+	}
+	
+	@RequestMapping("admin/addProduct")
+	public String addProduct(Model theModel)
+	{
+		List<Product> prodList = theProductDao.findAll();
+		
+		theModel.addAttribute("prodList", prodList);
+		
+		return "addProduct";
+	}
 
 }

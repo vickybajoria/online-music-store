@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+
+<!--  Link Bootstrap -->
+<!-- Bootstrap CSS -->
+    <link rel="stylesheet" type="text/css" media="all" href="/css/bootstrap.min.css"
+         th:href="@{/css/bootstrap.min.css}" />
+</head>
+<body>
+<!--  Navbar -->
+<nav class="navbar navbar-expand-lg navbar-light" style="background-color: #00B3FF;">
+  <a class="navbar-brand" href="/online-music-store/">Online-music-store</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item">
+        <a class="nav-link" href="/online-music-store/">Home <span class="sr-only">(current)</span></a>
+      </li>
+      
+    </ul>
+    <form class="form-inline my-2 my-lg-0">
+      <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+      <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+    </form>
+  </div>
+</nav>
+
+
+<div class="container">
+<h2 style="margin-top:20px">Product Inventory Page</h2>
+<p>This is the product Inventory page</p>
+<table style="margin-top:30px" class="table table-hover">
+<thead>
+	<tr>
+		<th scope="col">Photo Thumb</th>
+		<th scope="col">Product Id</th>
+		<th scope="col">Product Name</th>
+        <th scope="col">Category</th>
+        <th scope="col">Condition</th>
+        <th scope="col">Price</th>
+        <th scope="col"></th>
+	</tr>
+</thead>
+	<tr th:each="product : ${prodList}">
+		<td><img src="#" alt="image"/></td>
+		<td th:text="${product.productId}"></td>
+		<td th:text="${product.productName}"></td>
+		<td th:text="${product.productCategory}"></td>
+		<td th:text="${product.productCondition}"></td>
+		<td th:text="${product.productPrice}"></td>
+		<td><a th:href="@{'/online-music-store/viewProduct/' + ${product.productId}}"><img style="width:20px" src="/images/info_fill.PNG"></img></a>
+		<a th:href="@{'/online-music-store/viewProduct/' + ${product.productId}}"><img style="width:20px" src="/images/remove.PNG"></img></a></td>
+	</tr>
+</table>
+
+<a href="#" class="btn btn-primary">Add Product</a>
+</div>
+
+<p class="pull-right" style="float:right "><a href="#">Back to top</a></p>
+
+<p style="margin-top:100px">&copy; 2019 Company, Inc. &middot; <a href="#">Privacy</a> &middot; <a href="#">Terms</a></p>
+
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+<script>window.jQuery ||
+document.write('<script src="<c:url value="/resources/js/jquery-1.11.3.min.js" />"><\/script>')</script>
+<script src="<c:url value="/resources/js/bootstrap.min.js" />"></script>
+
+</body>
+</html>
