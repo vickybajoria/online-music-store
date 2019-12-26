@@ -47,14 +47,14 @@
         <th scope="col"></th>
 	</tr>
 </thead>
-	<tr>
+	<tr th:each="product : ${prodList}">
 		<td><img src="#" alt="image"/></td>
-		<td th:text="${prod1.productId}"></td>
-		<td th:text="${prod1.productName}"></td>
-		<td th:text="${prod1.productCategory}"></td>
-		<td th:text="${prod1.productCondition}"></td>
-		<td th:text="${prod1.productPrice}"></td>
-		<td><a th:href="@{'/online-music-store/viewProduct/' + ${prod1.productId}}"><img style="width:20px" src="/images/info_fill.PNG"></img></a></td>
+		<td th:text="${product.productId}"></td>
+		<td th:text="${product.productName}"></td>
+		<td th:text="${product.productCategory}"></td>
+		<td th:text="${product.productCondition}"></td>
+		<td th:text="${product.productPrice}"></td>
+		<td><a th:href="@{'/online-music-store/viewProduct/' + ${product.productId}}"><img style="width:20px" src="/images/info_fill.PNG"></img></a></td>
 	</tr>
 </table>
 </div>

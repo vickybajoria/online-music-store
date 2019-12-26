@@ -2,6 +2,7 @@ package com.vickyproject.onlinemusicstore.controllers;
 
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -14,7 +15,8 @@ import com.vickyproject.onlinemusicstore.entity.Product;
 @RequestMapping("/online-music-store/")
 public class MainController {
 	
-	ProductDao dao = new ProductDao();
+	@Autowired
+	ProductDao theProductDao;
 	
 	@RequestMapping("")
 	public String homePage()
@@ -25,9 +27,9 @@ public class MainController {
 	@RequestMapping("productList")
 	public String getProduct(Model theModel)
 	{
-		List<Product> prodList = dao.getProductList();
+		List<Product> prodList = theProductDao.findAll();
 		
-		theModel.addAttribute("prod1", prodList.get(0));
+		theModel.addAttribute("prodList", prodList);
 		
 		return "productList";
 	}
@@ -36,7 +38,7 @@ public class MainController {
 	public String productDetails(@PathVariable int pId, Model theModel)
 	{
 		// get id from pathvariable
-		Product theProduct = dao.getProductById(pId);
+		Product theProduct = theProductDao.findById(pId);
 		
 		// make use  of dao to get the product detail
 		// put it in model

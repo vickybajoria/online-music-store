@@ -66,12 +66,12 @@
                 </div>
 
                 <div class="col-md-5">
-                    <h3 th:text="${prod.productName}"></h3>
-                    <p th:text="${prod.productDescription}"></p>
-                    <p th:text="${prod.productManufacturer}"></p>
-                    <p th:text="${prod.productCategory}"></p>
-                    <p th:text="${prod.productCondition}"></p>
-                    <p th:text="${prod.productPrice}"></p>
+                    <h3 th:inline="text">Name: [[${prod.productName}]]</h3>
+                    <p th:inline="text">Description: [[${prod.productDescription}]]</p>
+                    <p th:inline="text">Manufaturer: [[${prod.productManufacturer}]]</p>
+                    <p th:inline="text">Category: [[${prod.productCategory}]]</p>
+                    <p th:inline="text">Condition: [[${prod.productCondition}]]</p>
+                    <p th:inline="text">Price: [[${prod.productPrice}]]</p>
                 </div>
             </div>
         </div>
