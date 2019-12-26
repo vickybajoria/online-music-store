@@ -1,14 +1,42 @@
 package com.vickyproject.onlinemusicstore.entity;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+@Entity
+@Table(name="product")
 public class Product {
+	
+	@Id
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int productId;
+	
+	@Column(name="product_name")
 	private String productName;
+	
+	@Column(name="product_category")
 	private String productCategory;
+	
+	@Column(name="product_description")
 	private String productDescription;
+	
+	@Column(name="product_price")
 	private double productPrice;
+	
+	@Column(name="product_condition")
 	private String productCondition;
+	
+	@Column(name="product_status")
 	private String productStatus;
+	
+	@Column(name="unit_in_stock")
 	private int unitInStock;
+	
+	@Column(name="product_manufacturer")
 	private String productManufacturer;
 	
 	public int getProductId() {
