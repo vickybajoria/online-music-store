@@ -46,5 +46,11 @@ public class MainController {
 		
 		return "viewProduct";
 	}
+	
+	@RequestMapping("admin")
+	public String admin()
+	{
+		return "admin";
+	}
 
 }
