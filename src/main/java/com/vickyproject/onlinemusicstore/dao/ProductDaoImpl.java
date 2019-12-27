@@ -7,10 +7,12 @@ import javax.persistence.EntityManager;
 import org.hibernate.Session;
 import org.hibernate.query.Query;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.vickyproject.onlinemusicstore.entity.Product;
 
 @Repository
+@Transactional
 public class ProductDaoImpl implements ProductDao 
 {
 	// Define a field for EntityManager
@@ -49,14 +51,21 @@ public class ProductDaoImpl implements ProductDao
 
 	@Override
 	public void save(Product theProduct) {
-		// TODO Auto-generated method stub
-
+		// get the current hibernate session
+		Session currentSession = entityManager.unwrap(Session.class);
+		
+		// save employee
+		currentSession.saveOrUpdate(theProduct);
 	}
 
 	@Override
 	public void deleteById(int theId) {
-		// TODO Auto-generated method stub
-
+		// get the current hibernate session
+		Session currentSession = entityManager.unwrap(Session.class);
+		
+		// delete the object with primary key
+		currentSession.createQuery("delete from Product where productId=:theId").setParameter("theId", theId).executeUpdate();
+		
 	}
 
 }

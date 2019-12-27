@@ -37,44 +37,43 @@
 <h2 style="margin-top:20px">Add Product</h2>
 <p>Fill the below information to add a product:</p>
 
-<form>
+<form action="#" th:action="@{/online-music-store/admin/processAddProductForm}"
+						 th:object="${product}" method="POST">
 <p><label class="font-weight-bold">Name</label>
-<input style="width:100%" type="text" /></p>
+<input style="width:100%" type="text" th:field="*{productName}" /></p>
 <p><label style="padding-right:20px" class="font-weight-bold">Category</label>
-	 <input type="radio" name="category" value="instrument" />                          Instrument
-	 <input type="radio" name="category" value="record" style="margin-left:20px" />     Record
-	 <input type="radio" name="category" value="accessory" style="margin-left:20px"/>   Accessory
+	
+	 <input type="radio" name="category" value="instrument" th:field="*{productCategory}" />                          Instrument
+	 <input type="radio" name="category" value="record" style="margin-left:20px" th:field="*{productCategory}" />     Record
+	 <input type="radio" name="category" value="accessory" style="margin-left:20px" th:field="*{productCategory}" />   Accessory
 </p>
 
 <p><label class="font-weight-bold">Description</label>
-<textarea style="width:100%" rows="2">
+<textarea style="width:100%" rows="2" th:field="*{productDescription}">
 </textarea></p>
 
 <p><label class="font-weight-bold">Price</label>
-<input style="width:100%" type="text" />
+<input style="width:100%" type="text" th:field="*{productPrice}" />
 </p>
 
 <p><label style="padding-right:20px" class="font-weight-bold">Condition</label>
-	 <input type="radio" name="condition" value="new" />                              New
-	 <input type="radio" name="condition" value="used" style="margin-left:20px" />     Used
+	 <input type="radio" name="condition" value="new" th:field="*{productCondition}" />                              New
+	 <input type="radio" name="condition" value="used" style="margin-left:20px" th:field="*{productCondition}" />     Used
 </p>
 
 <p><label style="padding-right:20px" class="font-weight-bold">Status</label>
-	 <input type="radio" name="status" value="active" />                              Active
-	 <input type="radio" name="status" value="inactive" style="margin-left:20px" />   Inactive
+	 <input type="radio" name="status" value="active" th:field="*{productStatus}" />                              Active
+	 <input type="radio" name="status" value="inactive" style="margin-left:20px" th:field="*{productStatus}" />   Inactive
 </p>
 
 <p><label class="font-weight-bold">Unit In Stock</label>
-<input style="width:100%" type="text" /></p>
+<input style="width:100%" type="text" th:field="*{unitInStock}" /></p>
 
 <p><label class="font-weight-bold">Manufacturer</label>
-<input style="width:100%" type="text" /></p>
+<input style="width:100%" type="text" th:field="*{productManufacturer}" /></p>
 
-<button type="button" class="btn btn-success">Submit</button>
+<button type="submit" class="btn btn-success">Submit</button>
 <button type="button" class="btn btn-danger">Cancel</button>
-
-
-
 
 
 </form> 

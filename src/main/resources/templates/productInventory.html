@@ -56,11 +56,11 @@
 		<td th:text="${product.productCondition}"></td>
 		<td th:text="${product.productPrice}"></td>
 		<td><a th:href="@{'/online-music-store/viewProduct/' + ${product.productId}}"><img style="width:20px" src="/images/info_fill.PNG"></img></a>
-		<a th:href="@{'/online-music-store/viewProduct/' + ${product.productId}}"><img style="width:20px" src="/images/remove.PNG"></img></a></td>
+		<a th:href="@{'/online-music-store/admin/deleteProduct/' + ${product.productId}}"><img style="width:20px" src="/images/remove.PNG"></img></a></td>
 	</tr>
 </table>
 
-<a href="/online-music-store/admin/addProduct" class="btn btn-primary">Add Product</a>
+<a href="/online-music-store/admin/showProductAddForm" class="btn btn-primary">Add Product</a>
 </div>
 
 <p class="pull-right" style="float:right "><a href="#">Back to top</a></p>
