@@ -63,7 +63,7 @@ public class MainController {
 		return "productInventory";
 	}
 	
-	@RequestMapping("admin/addProduct")
+	@RequestMapping("/admin/addProduct")
 	public String addProduct(Model theModel)
 	{
 		List<Product> prodList = theProductDao.findAll();
