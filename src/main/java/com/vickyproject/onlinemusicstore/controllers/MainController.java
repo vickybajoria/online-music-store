@@ -33,9 +33,6 @@ public class MainController {
 	@Autowired
 	ProductDao theProductDao;
 	
-	@Value("${upload.path}")
-	private String upload_path;
-	
 	@RequestMapping("")
 	public String homePage()
 	{
@@ -107,8 +104,11 @@ public class MainController {
 		 try {
 
 	            // Get the file and save it somewhere
+			       Path currentPath = Paths.get(".");
+			       Path absolutePath = currentPath.toAbsolutePath();
+			       
 	            byte[] bytes = productImage.getBytes();
-	            Path path = Paths.get(upload_path + productImage.getOriginalFilename());
+	            Path path = Paths.get(absolutePath + "/src/main/resources/static/uploads/" + theProduct.getProductId() + ".png");
 	            Files.write(path, bytes);
 
 	        } catch (IOException e) {
@@ -127,6 +127,20 @@ public class MainController {
 		{
 			throw new RuntimeException("Product id not found: " + pId);
 		}
+		
+		// Get the file and save it somewhere
+		  Path currentPath = Paths.get(".");
+		  Path absolutePath = currentPath.toAbsolutePath();
+		  
+		  Path path = Paths.get(absolutePath + "/src/main/resources/static/uploads/" + theProduct.getProductId() + ".png");
+		  
+		  if (Files.exists(path)) {
+	            try {
+	                Files.delete(path);
+	            } catch (IOException e) {
+	                e.printStackTrace();
+	            }
+	        }
 		
 		theProductDao.deleteById(pId);
 		

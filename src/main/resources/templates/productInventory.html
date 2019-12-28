@@ -49,7 +49,8 @@
 	</tr>
 </thead>
 	<tr th:each="product : ${prodList}">
-		<td><img src="#" alt="image"/></td>
+		<td class="w-25"><img style="width:75%; height:30%" th:src="@{'/uploads/' + ${product.productId} + '.png'}" alt="image" /></td>
+		
 		<td th:text="${product.productId}"></td>
 		<td th:text="${product.productName}"></td>
 		<td th:text="${product.productCategory}"></td>
