@@ -6,6 +6,9 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.Transient;
+
+import org.springframework.web.multipart.MultipartFile;
 
 @Entity
 @Table(name="product")
@@ -39,6 +42,15 @@ public class Product {
 	@Column(name="product_manufacturer")
 	private String productManufacturer;
 	
+	@Transient
+    private MultipartFile productImage;
+	
+	public MultipartFile getProductImage() {
+		return productImage;
+	}
+	public void setProductImage(MultipartFile productImage) {
+		this.productImage = productImage;
+	}
 	public int getProductId() {
 		return productId;
 	}

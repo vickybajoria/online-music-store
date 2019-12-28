@@ -1,15 +1,27 @@
 package com.vickyproject.onlinemusicstore.controllers;
 
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.vickyproject.onlinemusicstore.dao.ProductDao;
 import com.vickyproject.onlinemusicstore.entity.Product;
@@ -20,6 +32,9 @@ public class MainController {
 	
 	@Autowired
 	ProductDao theProductDao;
+	
+	@Value("${upload.path}")
+	private String upload_path;
 	
 	@RequestMapping("")
 	public String homePage()
@@ -77,25 +92,31 @@ public class MainController {
 	}
 	
 	@PostMapping("/admin/processAddProductForm")
-	public String saveProduct(@ModelAttribute("product") Product theProduct)
+	public String saveProduct(@ModelAttribute("product") Product theProduct, BindingResult result, 
+			                  HttpServletRequest request)
 	{
+		if(result.hasErrors())
+			return "addProduct";
+		 
 		theProductDao.save(theProduct);
+		
+		MultipartFile productImage = theProduct.getProductImage();
+		
+		if (!productImage.isEmpty()) {
+		
+		 try {
+
+	            // Get the file and save it somewhere
+	            byte[] bytes = productImage.getBytes();
+	            Path path = Paths.get(upload_path + productImage.getOriginalFilename());
+	            Files.write(path, bytes);
+
+	        } catch (IOException e) {
+	            e.printStackTrace();
+	        }
+		}
 		return "redirect:/online-music-store/admin/productInventory";
 	}
-	
-	/*@RequestMapping("/admin/deleteProduct/{pId}")
-	public String deleteProduct(@PathVariable int pId, Model theModel)
-	{
-		// delete the product
-	//	if(theProductDao.findById(pId) == null)
-		//{
-		//	throw new RuntimeException("Product id not found: " + pId);
-	//	}
-		
-		//theProductDao.deleteById(pId);
-		
-		return "redirect:admin/productInventory";
-	}*/
 	
 	@RequestMapping("/admin/deleteProduct/{pId}")
 	public String deleteProduct(@PathVariable int pId)

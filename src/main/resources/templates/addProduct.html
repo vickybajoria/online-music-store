@@ -38,7 +38,7 @@
 <p>Fill the below information to add a product:</p>
 
 <form action="#" th:action="@{/online-music-store/admin/processAddProductForm}"
-						 th:object="${product}" method="POST">
+						 th:object="${product}" method="POST" enctype="multipart/form-data">
 <p><label class="font-weight-bold">Name</label>
 <input style="width:100%" type="text" th:field="*{productName}" /></p>
 <p><label style="padding-right:20px" class="font-weight-bold">Category</label>
@@ -71,6 +71,9 @@
 
 <p><label class="font-weight-bold">Manufacturer</label>
 <input style="width:100%" type="text" th:field="*{productManufacturer}" /></p>
+
+<p><input type="file" name="file" th:field="*{productImage}" /></p>
+<br />
 
 <button type="submit" class="btn btn-success">Submit</button>
 <button type="button" class="btn btn-danger">Cancel</button>
