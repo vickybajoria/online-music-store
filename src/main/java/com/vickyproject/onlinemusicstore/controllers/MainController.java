@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
@@ -88,10 +89,25 @@ public class MainController {
 		return "addProduct";
 	}
 	
+	@RequestMapping("/admin/showProductEditForm/{pId}")
+	public String showProductEditForm(@PathVariable("pId") int pId, Model theModel)
+	{
+		Product theProduct = theProductDao.findById(pId);
+		if(theProduct == null)
+		{
+			throw new RuntimeException("Product id not found: " + pId);
+		}
+		
+		theModel.addAttribute("product", theProduct);
+		
+		return "editProduct";
+	}
+	
 	@PostMapping("/admin/processAddProductForm")
 	public String saveProduct(@ModelAttribute("product") Product theProduct, BindingResult result, 
 			                  HttpServletRequest request)
 	{
+		theProduct.setProductId(0);   // New product
 		if(result.hasErrors())
 			return "addProduct";
 		 
@@ -109,6 +125,48 @@ public class MainController {
 			       
 	            byte[] bytes = productImage.getBytes();
 	            Path path = Paths.get(absolutePath + "/src/main/resources/static/uploads/" + theProduct.getProductId() + ".png");
+	            Files.write(path, bytes);
+
+	        } catch (IOException e) {
+	            e.printStackTrace();
+	        }
+		}
+		return "redirect:/online-music-store/admin/productInventory";
+	}
+	
+	@PostMapping("/admin/processEditProductForm")
+	public String EditProduct(@ModelAttribute("product") Product theProduct, BindingResult result, 
+			                  HttpServletRequest request)
+	{
+		if(result.hasErrors())
+			return "addProduct";
+		 
+		theProductDao.save(theProduct);
+		
+		MultipartFile productImage = theProduct.getProductImage();
+		
+		// Get the file and save it somewhere
+		  Path currentPath = Paths.get(".");
+		  Path absolutePath = currentPath.toAbsolutePath();
+		  
+		  Path path = Paths.get(absolutePath + "/src/main/resources/static/uploads/" + theProduct.getProductId() + ".png");
+		  
+		if (Files.exists(path)) {
+            try {
+                Files.delete(path);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+		
+		if (!productImage.isEmpty()) {
+		
+		 try {
+
+	            // Get the file and save it somewhere
+			       
+	            byte[] bytes = productImage.getBytes();
+	            
 	            Files.write(path, bytes);
 
 	        } catch (IOException e) {
