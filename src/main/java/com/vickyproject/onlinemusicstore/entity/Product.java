@@ -7,6 +7,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.persistence.Transient;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotEmpty;
 
 import org.springframework.web.multipart.MultipartFile;
 
@@ -18,8 +20,10 @@ public class Product {
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int productId;
 	
+	@NotEmpty (message = "The product name must not be null.")
 	@Column(name="product_name")
 	private String productName;
+	
 	
 	@Column(name="product_category")
 	private String productCategory;
@@ -27,6 +31,7 @@ public class Product {
 	@Column(name="product_description")
 	private String productDescription;
 	
+	@Min(value = 0, message = "The product price must no be less then zero.")
 	@Column(name="product_price")
 	private double productPrice;
 	
@@ -36,6 +41,7 @@ public class Product {
 	@Column(name="product_status")
 	private String productStatus;
 	
+	@Min(value = 0, message = "The product unit must not be less than zero.")
 	@Column(name="unit_in_stock")
 	private int unitInStock;
 	

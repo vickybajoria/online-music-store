@@ -8,6 +8,7 @@ import java.nio.file.Paths;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -104,7 +105,7 @@ public class MainController {
 	}
 	
 	@PostMapping("/admin/processAddProductForm")
-	public String saveProduct(@ModelAttribute("product") Product theProduct, BindingResult result, 
+	public String saveProduct(@Valid @ModelAttribute("product") Product theProduct, BindingResult result, 
 			                  HttpServletRequest request)
 	{
 		theProduct.setProductId(0);   // New product
@@ -135,7 +136,7 @@ public class MainController {
 	}
 	
 	@PostMapping("/admin/processEditProductForm")
-	public String EditProduct(@ModelAttribute("product") Product theProduct, BindingResult result, 
+	public String EditProduct(@Valid @ModelAttribute("product") Product theProduct, BindingResult result, 
 			                  HttpServletRequest request)
 	{
 		if(result.hasErrors())

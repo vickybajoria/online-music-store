@@ -39,8 +39,9 @@
 
 <form action="#" th:action="@{/online-music-store/admin/processAddProductForm}"
 						 th:object="${product}" method="POST" enctype="multipart/form-data">
+						 <div th:if="${#fields.hasErrors('*')}">errors</div>
 <p><label class="font-weight-bold">Name</label>
-<input style="width:100%" type="text" th:field="*{productName}" /></p>
+<input style="width:100%" type="text" th:field="*{productName}" /><div th:if="${#fields.hasErrors('productName')}" style="color:red" th:errors="*{productName}">errors</div></p>
 <p><label style="padding-right:20px" class="font-weight-bold">Category</label>
 	
 	 <input type="radio" name="category" value="instrument" th:field="*{productCategory}" />                          Instrument
@@ -54,6 +55,7 @@
 
 <p><label class="font-weight-bold">Price</label>
 <input style="width:100%" type="text" th:field="*{productPrice}" />
+<div th:if="${#fields.hasErrors('productPrice')}" style="color:red" th:errors="*{productPrice}">errors</div>
 </p>
 
 <p><label style="padding-right:20px" class="font-weight-bold">Condition</label>
@@ -67,7 +69,9 @@
 </p>
 
 <p><label class="font-weight-bold">Unit In Stock</label>
-<input style="width:100%" type="text" th:field="*{unitInStock}" /></p>
+<input style="width:100%" type="text" th:field="*{unitInStock}" />
+<div th:if="${#fields.hasErrors('unitInStock')}" style="color:red" th:errors="*{unitInStock}">errors</div>
+</p>
 
 <p><label class="font-weight-bold">Manufacturer</label>
 <input style="width:100%" type="text" th:field="*{productManufacturer}" /></p>
